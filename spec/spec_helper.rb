@@ -18,8 +18,7 @@ end
 Capybara.configure do |config|
   config.default_max_wait_time = 5
   config.register_driver :selenium do |app|
-    Selenium::WebDriver::Firefox::Binary.path = ENV['Firefox_Path']
-    Capybara::Selenium::Driver.new(app, browser: :firefox)
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
   end
   config.default_driver = :selenium
   config.page.driver.browser.manage.window.resize_to(1280, 743)
