@@ -3,13 +3,8 @@ class Sessions
   class SessionSeventeen
     include Capybara::DSL
 
-    def present?
-      has_css?('.well', text: '¡Continúa con tu rutina!')
-    end
-
-    def open
-      find('.well', text: '¡Continúa con tu rutina!')
-        .find('.btn', text: 'Inicio').click
+    def title
+      '¡Continúa con tu rutina!'
     end
 
     def has_session_content?

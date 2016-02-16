@@ -4,6 +4,7 @@ require 'rspec'
 require 'selenium-webdriver'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
+require './lib/pages/configuration'
 
 # RSpec configuration options
 RSpec.configure do |config|

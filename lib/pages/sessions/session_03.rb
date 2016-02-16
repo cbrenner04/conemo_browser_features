@@ -3,13 +3,8 @@ class Sessions
   class SessionThree
     include Capybara::DSL
 
-    def present?
-      has_css?('.well', text: '¿Qué quieres lograr con CONEMO?')
-    end
-
-    def open
-      find('.well', text: '¿Qué quieres lograr con CONEMO?')
-        .find('.btn', text: 'Inicio').click
+    def title
+      '¿Qué quieres lograr con CONEMO?'
     end
 
     def has_session_content?
