@@ -6,4 +6,8 @@ class Configuration
     fill_in 'configurationToken', with: 'it doesn\'t matter'
     click_on 'Inicio'
   end
+
+  def clear_data
+    execute_script("indexedDB.deleteDatabase('conemo'); localStorage.clear()")
+  end
 end
