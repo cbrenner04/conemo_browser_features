@@ -5,6 +5,15 @@ require 'selenium-webdriver'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require './lib/pages/configuration'
+require './lib/pages/home'
+
+def configuration
+  @configuration ||= Configuration.new
+end
+
+def home
+  @home ||= Home.new
+end
 
 # RSpec configuration options
 RSpec.configure do |config|
@@ -13,6 +22,8 @@ RSpec.configure do |config|
     c.syntax = [:should, :expect]
   end
   config.profile_examples = 10
+  config.before(:each) { configuration.configure_user }
+  config.after(:each) { configuration.clear_data }
 end
 
 # Capybara configuration options

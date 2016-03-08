@@ -1,3 +1,4 @@
+# page object for configuration page
 class Configuration
   include Capybara::DSL
 
