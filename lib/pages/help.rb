@@ -3,7 +3,7 @@ class Help
   include Capybara::DSL
 
   def open
-    click_on 'Contactar enfermera'
+    click_on 'Solicitar ayuda'
   end
 
   def ask_for_help

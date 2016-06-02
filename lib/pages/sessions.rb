@@ -2,23 +2,6 @@
 class Sessions
   include Capybara::DSL
 
-  def initialize
-    @activity ||= [
-      'Escuchar música',
-      'Llamar a un amigo o familiar',
-      'Hacer una caminata corta',
-      'Leer un libro',
-      'Cocinar algo',
-      'Dibujar o pintar',
-      'Arreglarte',
-      'Ver una película',
-      'Cantar',
-      'Conversar con tu vecino',
-      'Tejer',
-      'Hacer jardinería'
-    ].sample
-  end
-
   def open_menu
     click_on 'Sesiones'
   end
@@ -56,25 +39,27 @@ class Sessions
     all('.btn', text: 'Inicio')[num].click
   end
 
-  def scroll_to_last_slide
-    tries ||= 10
-    execute_script('window.scrollBy(0,1000)')
-    find('.glyphicon-home')
-  rescue Capybara::ElementNotFound,
-         Selenium::WebDriver::Error::ElementNotVisibleError
-    retry unless (tries -= 1).zero?
+  def next
+    all('.navigation-button').last.click
   end
 
-  def scroll_to_and_click_home_button
-    tries ||= 10
-    execute_script('window.scrollBy(0,1000)')
-    find('.glyphicon-home').click
-  rescue Capybara::ElementNotFound,
-         Selenium::WebDriver::Error::ElementNotVisibleError
-    retry unless (tries -= 1).zero?
+  def previous
+    first('.navigation-button').click
   end
 
   def plan_activity
+    @activity ||= ['Escuchar música',
+                   'Llamar a un amigo o familiar',
+                   'Hacer una caminata corta',
+                   'Leer un libro',
+                   'Cocinar algo',
+                   'Dibujar o pintar',
+                   'Arreglarte',
+                   'Ver una película',
+                   'Cantar',
+                   'Conversar con tu vecino',
+                   'Tejer',
+                   'Hacer jardinería'].sample
     select @activity, from: 'planned-activity-name'
   end
 
@@ -88,20 +73,16 @@ class Sessions
     has_text? '¡Excelente! ¿Cuánto te gustó hacer la actividad? Elige la ' \
               'respuesta que mejor describe tu experiencia con la activid' \
               'ad que hiciste.'
-    response_1 = [
-      '1 = No me gustó para nada',
-      '2 = No me gustó',
-      '3 = Ni me gustó ni me desagradó',
-      '4 = Me gustó',
-      '5 = Me gustó mucho'
-    ].sample
-    response_2 = [
-      '1 = Muy insatisfecho/a',
-      '2 = Insatisfecho/a',
-      '3 = Ni satisfecho/a ni insatisfecho/a',
-      '4 = Satisfecho/a',
-      '5 = Muy satisfecho/a'
-    ].sample
+    response_1 = ['1 = No me gustó para nada',
+                  '2 = No me gustó',
+                  '3 = Ni me gustó ni me desagradó',
+                  '4 = Me gustó',
+                  '5 = Me gustó mucho'].sample
+    response_2 = ['1 = Muy insatisfecho/a',
+                  '2 = Insatisfecho/a',
+                  '3 = Ni satisfecho/a ni insatisfecho/a',
+                  '4 = Satisfecho/a',
+                  '5 = Muy satisfecho/a'].sample
     select response_1, from: 'reported-activity-happiness'
     select response_2, from: 'reported-activity-worthwhile'
   end

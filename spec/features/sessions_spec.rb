@@ -16,9 +16,44 @@ feature 'Participant engages with sessions' do
   scenario 'Participant starts session from home page' do
     sessions.start_session_from_home
 
-    expect(session_1).to have_session_content
+    # check for session content
+    expect(session_1).to have_slide_1_content
+    sessions.next
+    expect(session_1).to have_slide_2_content
+    sessions.next
+    expect(session_1).to have_slide_3_content
+    sessions.next
+    expect(session_1).to have_slide_4_content
+    sessions.next
+    expect(session_1).to have_slide_5_content
+    sessions.next
+    expect(session_1).to have_slide_6_content
+    sessions.next
+    expect(session_1).to have_slide_7_content
+    sessions.next
+    expect(session_1).to have_slide_8_content
+    sessions.next
+    expect(session_1).to have_slide_9_content
+    sessions.next
+
+    # check the activity planning functionality
+    expect(session_1).to be_on_activity_planning_slide
+    sessions.next
+    expect(session_1).to have_nothing_planned_alert
+    sessions.previous
+    expect(session_1).to be_on_activity_planning_slide
+    sessions.plan_activity
+    sessions.next
+    expect(session_1).to have_planned_activity_alert
+    sessions.next
+    expect(session_1).to have_responses_saved
+
+    # go home
+    sessions.select_home_button
+    expect(sessions).to have_title_present_on_home(session_1)
   end
 
+  # these no longer work as is
   scenario 'Participant reads all sessions' do
     sessions.update_start_date_by(44)
     sessions.open_menu
