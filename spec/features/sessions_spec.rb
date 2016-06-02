@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/sessions_spec.rb
 
 require './spec/support/session_helper.rb'
@@ -60,19 +61,14 @@ feature 'Participant engages with sessions' do
 
     expect(sessions).to have_unread_sessions(18)
 
-    begin
-      num_left ||= 17
-      sess_num ||= 0
-      puts "reads session #{sess_num + 1}" # if failure, we know where
-      sessions.read_session(sess_num)
+    (0..17).each do |i|
+      puts "reads session #{i + 1}" # if failure, we know when
+      sessions.read_session(i)
       sessions.scroll_to_and_click_home_button
       sessions.open_menu
 
-      expect(sessions).to have_unread_sessions(num_left)
-
-      num_left -= 1
-      sess_num += 1
-    end until num_left < 0
+      expect(sessions).to have_unread_sessions((18 - i) - 1)
+    end
   end
 
   scenario 'Participant sees appropriate sessions, opens current session, ' \
@@ -83,23 +79,21 @@ feature 'Participant engages with sessions' do
                session_11, session_12, session_13, session_14, session_15,
                session_16, session_17, session_18]
 
-    begin
-      n ||= 0
-      puts "sees session #{n + 1} content" # if failure, we know where
-      sessions.update_start_date_by(days[n])
+    days.zip(session) do |day, lesson|
+      puts "sees #{lesson} content" # if failure, we know where
+      sessions.update_start_date_by(day)
       sessions.open_menu
 
-      expect(sessions).to_not have_session_present(session[n + 1])
+      expect(sessions).to_not have_session_present(lesson)
 
-      sessions.open_session(session[n])
+      sessions.open_session(lesson)
 
-      expect(session[n]).to have_session_content
+      expect(lesson).to have_session_content
 
       sessions.scroll_to_and_click_home_button
 
-      expect(sessions).to have_title_present_on_home(session[n])
-      n += 1
-    end until n > 16
+      expect(sessions).to have_title_present_on_home(lesson)
+    end
 
     puts 'sees session 18 content'
     sessions.update_start_date_by(41)

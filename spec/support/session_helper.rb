@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/support/sessions_helper.rb
 
 require './lib/pages/sessions'

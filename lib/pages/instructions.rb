@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # page object for instructions page
 class Instructions
   include Capybara::DSL
@@ -36,5 +37,5 @@ class Instructions
     'leídas) y luego ve a la sesión más reciente. Cómo revisar la sesión de ' \
     'entrenamiento La sesión de entrenamiento que hiciste en la primera cita' \
     ' con la enfermera está disponible en “Sesiones”. Es la primera sesión de' \
-    ' la lista de sesiones.'.freeze
+    ' la lista de sesiones.'
 end

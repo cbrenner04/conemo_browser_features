@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # filename: ./spec/features/help_spec.rb
 
 require './lib/pages/help'

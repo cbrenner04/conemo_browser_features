@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Sessions
   # page object for session 12
   class SessionTwelve
