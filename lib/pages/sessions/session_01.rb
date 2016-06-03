@@ -78,13 +78,6 @@ class Sessions
                 'ndo últimamente pero te gustaría hacer entre HOY y MAÑANA'
     end
 
-    def has_nothing_planned_alert?
-      has_text?('Aún no has hecho tu selección. Por favor, presiona el rectá' \
-                'ngulo blanco y selecciona una de las opciones de la lista a' \
-                'ntes de pasar a la siguiente página.') &&
-        has_css?('.no-response')
-    end
-
     def has_planned_activity_alert?
       has_text?('¡Muy bien! Intenta hacer esta actividad que has seleccionad' \
                 'o entre hoy y mañana. Recuerda que puedes cambiar tu elecci' \
